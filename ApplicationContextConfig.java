@@ -14,11 +14,14 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.niit.shoppingcart.domain.Category;
+import com.niit.shoppingcart.domain.Product;
+import com.niit.shoppingcart.domain.Supplier;
 import com.niit.shoppingcart.domain.User;
 
 
 @Configuration
-@ComponentScan("com.niit")
+@ComponentScan("com.niit.shoppingcart")
 @EnableTransactionManagement
 
 public class ApplicationContextConfig {
@@ -28,7 +31,7 @@ public class ApplicationContextConfig {
 
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 			
-		dataSource.setUrl("jdbc:h2:~/test");
+		dataSource.setUrl("jdbc:h2:tcp://localhost/~/test");
 
 		dataSource.setDriverClassName("org.h2.Driver");
 
@@ -55,11 +58,15 @@ public class ApplicationContextConfig {
 		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
 		sessionBuilder.addProperties(getHibernateProperties());
 		sessionBuilder.addAnnotatedClass(User.class);
+		sessionBuilder.addAnnotatedClass(Category.class);
+		
+		sessionBuilder.addAnnotatedClass(Supplier.class);
+		sessionBuilder.addAnnotatedClass(Product.class);
 		//add all other domain object classes
 		
-		//instead
-		
-		sessionBuilder.scanPackages("com.niit");
+				//Instead of adding individua domain objects to sessionBuilder.
+				//you can add all the domain objects using single statement
+				sessionBuilder.scanPackages("com.niit");
 	
 		return sessionBuilder.buildSessionFactory();
 	}

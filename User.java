@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
 import org.springframework.stereotype.Component;
 
 @Entity   // to map the data base table
-@Table(name ="User")  //if the table name and domain class name is different
+@Table(name ="USER")  //if the table name and domain class name is different
 @Component   //context.scan("com.niit") --will scan the pacakge and create singlton instances
 
 public class User {

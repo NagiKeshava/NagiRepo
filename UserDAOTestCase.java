@@ -10,89 +10,98 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.niit.shoppingcart.dao.UserDAO;
 import com.niit.shoppingcart.domain.User;
 
-
 public class UserDAOTestCase {
 	
-	@Autowired static AnnotationConfigApplicationContext context;
-
-	@Autowired static UserDAO userDAO;
 	
-    @Autowired static User user;
+@Autowired static AnnotationConfigApplicationContext context;
+
+	
+	@Autowired  static UserDAO  userDAO;
+	
+	@Autowired  static User user;
+	
 	
 	//The above objects need to initialize
-    
-	/*This method is going to execute before calling any one of test case
-	and will execute only once*/  
-    
-    @BeforeClass
-	public static void initalize()
+	/**
+	 * This method is going execute before calling any one of test case
+	 * and will execute only once
+	 */
+	@BeforeClass
+	public static void initialize()
 	{
-	    context=new AnnotationConfigApplicationContext();
-	    context.scan("com.niit");
-	    context.refresh();
-	    //get the userDAO from context
-	      userDAO=(UserDAO) context.getBean("UserDAO");
-	 	//get the user from context
-	       user=(User)context.getBean("User");
+		context = new AnnotationConfigApplicationContext();
+		context.scan("com.niit");
+		context.refresh();
+		
+		//get the userDAO from context
+		userDAO =  (UserDAO) context.getBean("userDAO");
+		
+		//get the user from context
+		
+		user = (User)context.getBean("user");
+		
 	}
 	
 	@Test
 	public void createUserTestCase()
 	{
-	user.setId("Keshava");
-	user.setName("Keshava Priya");
-	user.setPassword("Krishna");
-	user.setContact("7062485931");
-	user.setRole("ROLE_USER");
+		user.setId("Madhav");
+		user.setName("KeshavaPriya");
+		user.setPassword("Krishna");
+		user.setRole("ROLE_USER");
+		user.setContact("7062485931");
+		boolean flag =  userDAO.save(user);
 	
-	boolean flag=userDAO.save(user);
-	//take three parameter assertfuntion since two parameter method deprecated
-	//this assertEquals method
-	//error-if there is in runtime errors-red mark
-	//success-if expected and actual is same- green mark
-	//fails-if expected and actual is different-blue mark.
-	assertEquals("createUserTestCase", true,flag);
+
+		//error - if there is in runtime errors  -  Red mark
+		//success  - if expected and actual is same  - green mark
+		//fail  - if expected and actual is different  -  blue mark
+		assertEquals("createUser TestCase",true,flag);
+		
 	}
-	
 	
 	
 	@Test
 	public void updateUserTestCase()
 	{
-	user.setId("Keshava");
-	user.setName("Keshava Priya");
-	user.setPassword("KrishnaSP");
-	user.setContact("7062485931");
-	user.setRole("ROLE_USER");
+		user.setId("S1");
+		user.setName("Madhav");
+		user.setPassword("KrishnaSP");
+		user.setRole("ROLE_USER");
+		user.setContact("7062485931");
+		boolean flag =  userDAO.update(user);
 	
-	boolean flag=userDAO.update(user);
-	//take three parameter assertfuntion since two parameter method deprecated
-	//this assertEquals method
-	//error-if there is in runtime errors-red mark
-	//success-if expected and actual is same- green mark
-	//fails-if expected and actual is different-blue mark.
-	assertEquals("updateUserTestCase", true,flag);
-	}
 
-	@Test
-	public void validateUserTestCase(){
-		
-		boolean flag=userDAO.validate("Keshava", "KrishnaSP");
-		
-		
-		assertEquals(true,flag);
-	}
-	
-	
-	@Test
-	public void getAllUserTestCase(){
-		
-		int actualsize=userDAO.list().size();
-		
-		//1-number of records in database
-		assertEquals(1,actualsize);
+		//error - if there is in runtime errors  -  Red mark
+		//success  - if expected and actual is same  - green mark
+		//fail  - if expected and actual is different  -  blue mark
+		assertEquals(" update user test case",true,flag);
 		
 	}
 	
+	@Test
+	public void validateUSerTestCase()
+	{
+		
+		boolean flag =  userDAO.validate("Keshava", "Krishna");
+		
+		
+		assertEquals(true, flag);
+		
+	}
 	
+	@Test
+	public void getAllUserTestCase()
+	{
+		int actualSize=   userDAO.list().size();
+		
+		//will compare actual and expected
+		//if actual and expected is same - TC will pass
+		//if it is different - TC fail
+		assertEquals(2, actualSize);
+	}
+	
+	
+	
+
 }
