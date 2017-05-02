@@ -20,11 +20,6 @@
 </head>
 <body>
 
-
-     
-    
-<jsp:include page="Menu.jsp"></jsp:include>
-
  <a href="RegisterPage"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
       <a href="LoginPage"><span class="glyphicon glyphicon-log-in"></span> Login</a>
       
@@ -37,6 +32,27 @@
 <c:if test="${isUserClickedRegister=='true'}">
 <jsp:include page="Registration.jsp"></jsp:include>
 </c:if>
+     
+    
+<jsp:include page="Menu.jsp"></jsp:include>
+
+<c:if test="${isAdmin=='true'}">
+<jsp:include page="admin/AdminHome.jsp"></jsp:include>
+
+</c:if>
+<c:if test="${isAdminClickedCategories=='true' }">
+<jsp:include page="admin/Category.jsp"></jsp:include>
+</c:if>
+
+<c:if test=" ${isAdminClickedSuppliers=='true'}">
+<jsp:include page="admin/Supplier.jsp"></jsp:include>
+</c:if>
+<c:if test="${isAdminClickedProducts=='true' }">
+<jsp:include page="admin/Product.jsp"></jsp:include>
+</c:if>
+
+
+
 
 
 
